@@ -12,15 +12,17 @@ public class Main {
 
         int port = 8989;
 
-        try (ServerSocket serverSocket = new ServerSocket(port);
-             Socket clientSocket = serverSocket.accept();
-             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
-            Gson gson = new Gson();
-            String word = in.readLine();
-            out.println(gson.toJson(engine.search(word)));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+        while (true) {
+            try (ServerSocket serverSocket = new ServerSocket(port);
+                 Socket clientSocket = serverSocket.accept();
+                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
+                Gson gson = new Gson();
+                String word = in.readLine();
+                out.println(gson.toJson(engine.search(word)));
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }
