@@ -8,8 +8,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         BooleanSearchEngine engine = new BooleanSearchEngine(new File("pdfs"));
-//        System.out.println(engine.search("бизнес"));
-
+//        String word = "Бизнес";
+//        System.out.println(engine.search(word.toLowerCase()));
+//
         int port = 8989;
 
         while (true) {
@@ -19,7 +20,7 @@ public class Main {
                  BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
                 Gson gson = new Gson();
                 String word = in.readLine();
-                out.println(gson.toJson(engine.search(word)));
+                out.println(gson.toJson(engine.search(word.toLowerCase())));
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
