@@ -10,17 +10,21 @@ public class Main {
         BooleanSearchEngine engine = new BooleanSearchEngine(new File("pdfs"));
 //        String word = "Бизнес";
 //        System.out.println(engine.search(word.toLowerCase()));
-//
+
         int port = 8989;
+        ServerSocket serverSocket = new ServerSocket(port);
 
         while (true) {
-            try (ServerSocket serverSocket = new ServerSocket(port);
-                 Socket clientSocket = serverSocket.accept();
+            try (Socket clientSocket = serverSocket.accept();
                  PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                  BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
                 Gson gson = new Gson();
                 String word = in.readLine();
+                if(engine.search(word.toLowerCase()).isEmpty()){
+                    out.println("Поиск не дал результата. Такого слова нет!");
+                } else {
                 out.println(gson.toJson(engine.search(word.toLowerCase())));
+                }
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }

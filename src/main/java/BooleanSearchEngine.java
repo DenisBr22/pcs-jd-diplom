@@ -44,10 +44,11 @@ public class BooleanSearchEngine implements SearchEngine {
 
     @Override
     public List<PageEntry> search(String word) {
+        List<PageEntry> result;
         if (allWords.containsKey(word)) {
-            List<PageEntry> sort = allWords.get(word);
-            Collections.sort(sort);
-            return sort;
+            result = allWords.get(word);
+            Collections.sort(result);
+            return result;
         } else {
             return Collections.emptyList();
         }
