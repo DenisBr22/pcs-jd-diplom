@@ -40,6 +40,9 @@ public class BooleanSearchEngine implements SearchEngine {
                 }
             }
         }
+        for (var entry : allWords.entrySet()) {
+            Collections.sort(entry.getValue());
+        }
     }
 
     public Map<String, List<PageEntry>> getAllWords() {
@@ -53,9 +56,7 @@ public class BooleanSearchEngine implements SearchEngine {
     @Override
     public List<PageEntry> search(String word) {
         if (allWords.containsKey(word)) {
-            List<PageEntry> result = allWords.get(word);
-            Collections.sort(result);
-            return result;
+            return allWords.get(word);
         } else {
             return Collections.emptyList();
         }
