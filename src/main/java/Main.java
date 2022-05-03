@@ -3,7 +3,6 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -21,12 +20,7 @@ public class Main {
                  BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
                 Gson gson = new Gson();
                 String word = in.readLine();
-                List<PageEntry> answer = engine.search(word.toLowerCase());
-                if(answer.isEmpty()){
-                    out.println("Поиск не дал результата. Такого слова нет!");
-                } else {
-                out.println(gson.toJson(answer));
-                }
+                out.println(gson.toJson(engine.search(word.toLowerCase())));
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }

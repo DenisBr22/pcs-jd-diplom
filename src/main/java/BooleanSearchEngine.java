@@ -8,7 +8,7 @@ import java.util.*;
 
 public class BooleanSearchEngine implements SearchEngine {
 
-    Map<String, List<PageEntry>> allWords = new HashMap<>();
+    private Map<String, List<PageEntry>> allWords = new HashMap<>();
 
     public BooleanSearchEngine(File pdfsDir) throws IOException {
         File[] files = pdfsDir.listFiles();
@@ -42,11 +42,18 @@ public class BooleanSearchEngine implements SearchEngine {
         }
     }
 
+    public Map<String, List<PageEntry>> getAllWords() {
+        return allWords;
+    }
+
+    public void setAllWords(Map<String, List<PageEntry>> allWords) {
+        this.allWords = allWords;
+    }
+
     @Override
     public List<PageEntry> search(String word) {
-        List<PageEntry> result;
         if (allWords.containsKey(word)) {
-            result = allWords.get(word);
+            List<PageEntry> result = allWords.get(word);
             Collections.sort(result);
             return result;
         } else {
